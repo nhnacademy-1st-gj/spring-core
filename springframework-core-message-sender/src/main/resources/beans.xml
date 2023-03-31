@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- annotation설정을 위해 추가-->
+    <context:annotation-config/>
+
+    <!--value 쓰기 위해 추가-->
+    <context:property-placeholder location="classpath:message.properties" />
+
+    <!-- @Required 애너테이션 사용을 위해 추가 -->
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor" />
+
+
+<!--    <bean id="smsMessageSender" class="com.nhnacademy.edu.springframework.messagesender.service.SmsMessageSender"-->
+<!--    scope="singleton">-->
+<!--    </bean>-->
+    <!--호출될때 만들어지는 데 얘는 프로토타입이라서 생성이 안됨-->
+
+    <bean id="emailMessageSender" class="com.nhnacademy.edu.springframework.messagesender.service.EmailMessageSender"
+    scope="singleton">
+        <qualifier type="com.nhnacademy.edu.springframework.messagesender.service.Email"/>
+    </bean>
+
+    <bean id="messageSendService" class= "com.nhnacademy.edu.springframework.messagesender.service.MessageSendService"/>
+
+</beans>
